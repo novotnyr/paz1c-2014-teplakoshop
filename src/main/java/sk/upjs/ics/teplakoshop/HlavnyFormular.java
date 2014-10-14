@@ -22,7 +22,11 @@ public class HlavnyFormular extends javax.swing.JFrame {
     public HlavnyFormular() {
         initComponents();
         
-        List<Teplaky> zoznamTeplakov = teplakyDao.dajVsetky();        
+        aktualizujZoznamTeplakov();        
+    }
+
+    private void aktualizujZoznamTeplakov() {
+        List<Teplaky> zoznamTeplakov = teplakyDao.dajVsetky();
         lstTeplaky.setListData(zoznamTeplakov.toArray());
     }
 
@@ -42,6 +46,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
         lblTagline = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField();
         btnVyhladavat = new javax.swing.JButton();
+        btnPridat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +74,13 @@ public class HlavnyFormular extends javax.swing.JFrame {
             }
         });
 
+        btnPridat.setText("Pridať...");
+        btnPridat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPridatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +97,10 @@ public class HlavnyFormular extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVyhladavat)))
+                        .addComponent(btnVyhladavat))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPridat)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -102,8 +117,10 @@ public class HlavnyFormular extends javax.swing.JFrame {
                     .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVyhladavat))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPridat)
+                .addGap(9, 9, 9))
         );
 
         pack();
@@ -120,6 +137,13 @@ public class HlavnyFormular extends javax.swing.JFrame {
         String filter = txtFilter.getText();
         lstTeplaky.setListData(teplakyDao.hladatPodlaFarby(filter).toArray());
     }//GEN-LAST:event_btnVyhladavatActionPerformed
+
+    private void btnPridatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPridatActionPerformed
+        UpravitTeplakyForm upravitTeplakyForm = new UpravitTeplakyForm(this, true);
+        upravitTeplakyForm.setVisible(true);
+        
+        aktualizujZoznamTeplakov();
+    }//GEN-LAST:event_btnPridatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,6 +181,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPridat;
     private javax.swing.JButton btnVyhladavat;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

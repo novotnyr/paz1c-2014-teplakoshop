@@ -1,2 +1,4 @@
-1;cyklámenová;XXL;40
-2;lososová;M;9.99
+16;zelena;XL;12
+17;modra;L;15
+18;khaki;S;3
+19;strakata;L;25
