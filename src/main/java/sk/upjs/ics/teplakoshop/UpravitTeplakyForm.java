@@ -5,6 +5,7 @@
  */
 package sk.upjs.ics.teplakoshop;
 
+import java.awt.Frame;
 import java.math.BigDecimal;
 
 /**
@@ -14,10 +15,30 @@ import java.math.BigDecimal;
 public class UpravitTeplakyForm extends javax.swing.JDialog {
     private TeplakyDao teplakyDao = new TeplakyDao();
     
+    private Teplaky teplaky;
+    
+    public UpravitTeplakyForm(Frame parent) {
+        this(new Teplaky(), parent);
+    }
+    
+    
+    public UpravitTeplakyForm(Teplaky teplaky, Frame parent) {
+        this(parent, true);
+        
+        this.teplaky = teplaky;
+        txtFarba.setText(teplaky.getFarba());
+        if(teplaky.getCena() == null) {
+            txtCena.setText("0");
+        } else {
+            txtCena.setText(teplaky.getCena().toString());
+        }
+        txtVelkost.setText(teplaky.getVelkost());
+    }
+    
     /**
      * Creates new form UpravitTeplakyForm
      */
-    public UpravitTeplakyForm(java.awt.Frame parent, boolean modal) {
+    private UpravitTeplakyForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -129,7 +150,7 @@ public class UpravitTeplakyForm extends javax.swing.JDialog {
     }//GEN-LAST:event_btnStornoActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        Teplaky teplaky = new Teplaky();
+//        Teplaky teplaky = new Teplaky();
         teplaky.setFarba(txtFarba.getText());
         teplaky.setVelkost(txtVelkost.getText());
         teplaky.setCena(new BigDecimal(txtCena.getText()));
