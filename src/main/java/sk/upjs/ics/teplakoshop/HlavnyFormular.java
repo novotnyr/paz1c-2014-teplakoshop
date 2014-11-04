@@ -14,7 +14,7 @@ import java.util.List;
  * @author student
  */
 public class HlavnyFormular extends javax.swing.JFrame {
-    private TeplakyDao teplakyDao = new TeplakyDao();
+    private TeplakyDao teplakyDao = new DatabazovyTeplakyDao();
 
     /**
      * Creates new form HlavnyFormular
@@ -129,7 +129,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnPridat)
                     .addComponent(btnUpravit))
                 .addGap(9, 9, 9))

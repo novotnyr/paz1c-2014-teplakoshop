@@ -11,4 +11,22 @@
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
     <name>teplakoshop</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>4.1.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>microsoft</groupId>
+            <artifactId>sqljdbc</artifactId>
+            <version>2014</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
