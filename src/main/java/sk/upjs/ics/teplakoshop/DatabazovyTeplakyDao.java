@@ -66,5 +66,12 @@ public class DatabazovyTeplakyDao implements TeplakyDao{
                     teplaky.getId());
         }
     }
+
+    @Override
+    public void odstran(Teplaky teplaky) {
+        jdbcTemplate.update("DELETE FROM teplaky WHERE id = ?", 
+                teplaky.getId());
+    }
+
     
 }

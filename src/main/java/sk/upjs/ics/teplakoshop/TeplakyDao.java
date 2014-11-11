@@ -18,5 +18,7 @@ public interface TeplakyDao {
     List<Teplaky> hladatPodlaFarby(String filter);
 
     void save(Teplaky teplaky);
+
+    public void odstran(Teplaky teplaky);
     
 }

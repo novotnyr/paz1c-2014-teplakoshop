@@ -3,6 +3,7 @@ package sk.upjs.ics.teplakoshop;
 
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,7 +15,8 @@ import java.util.List;
  * @author student
  */
 public class HlavnyFormular extends javax.swing.JFrame {
-    private TeplakyDao teplakyDao = new DatabazovyTeplakyDao();
+    private TeplakyDao teplakyDao 
+            = DaoFactory.INSTANCE.getTeplakyDao();
 
     /**
      * Creates new form HlavnyFormular
@@ -48,6 +50,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
         btnVyhladavat = new javax.swing.JButton();
         btnPridat = new javax.swing.JButton();
         btnUpravit = new javax.swing.JButton();
+        btnOdstranit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,6 +62,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        lstTeplaky.setCellRenderer(new TeplakyListCellRenderer());
         lstTeplaky.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstTeplakyMouseClicked(evt);
@@ -89,6 +93,13 @@ public class HlavnyFormular extends javax.swing.JFrame {
             }
         });
 
+        btnOdstranit.setText("Odstrániť...");
+        btnOdstranit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOdstranitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,8 +120,11 @@ public class HlavnyFormular extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnPridat)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpravit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnUpravit)))
+                        .addComponent(btnOdstranit)
+                        .addGap(2, 2, 2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -129,10 +143,11 @@ public class HlavnyFormular extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPridat)
-                    .addComponent(btnUpravit))
-                .addGap(9, 9, 9))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpravit)
+                    .addComponent(btnOdstranit)
+                    .addComponent(btnPridat))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -168,6 +183,23 @@ public class HlavnyFormular extends javax.swing.JFrame {
         
         aktualizujZoznamTeplakov();
     }//GEN-LAST:event_btnUpravitActionPerformed
+
+    private void btnOdstranitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOdstranitActionPerformed
+        Teplaky vybrateTeplaky = (Teplaky) lstTeplaky.getSelectedValue();
+        if(vybrateTeplaky == null) {
+            return;
+        }
+        
+        int tlacidlo = JOptionPane.showConfirmDialog(this, 
+                "Naozaj odstrániť?",
+                "Odstrániť tepláky",
+                JOptionPane.YES_NO_OPTION
+        );
+        if(tlacidlo == JOptionPane.YES_OPTION) {
+            teplakyDao.odstran(vybrateTeplaky);    
+            aktualizujZoznamTeplakov();            
+        }
+    }//GEN-LAST:event_btnOdstranitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +237,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOdstranit;
     private javax.swing.JButton btnPridat;
     private javax.swing.JButton btnUpravit;
     private javax.swing.JButton btnVyhladavat;
