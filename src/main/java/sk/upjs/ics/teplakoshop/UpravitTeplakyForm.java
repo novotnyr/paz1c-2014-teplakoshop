@@ -13,7 +13,8 @@ import java.math.BigDecimal;
  * @author student
  */
 public class UpravitTeplakyForm extends javax.swing.JDialog {
-    private SuborovyTeplakyDao teplakyDao = new SuborovyTeplakyDao();
+    private TeplakyDao teplakyDao 
+            = DaoFactory.INSTANCE.getTeplakyDao();
     
     private Teplaky teplaky;
     

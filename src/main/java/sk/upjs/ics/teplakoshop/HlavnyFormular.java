@@ -3,6 +3,7 @@ package sk.upjs.ics.teplakoshop;
 
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,8 +15,11 @@ import java.util.List;
  * @author student
  */
 public class HlavnyFormular extends javax.swing.JFrame {
-    private TeplakyDao teplakyDao = new DatabazovyTeplakyDao();
+    private TeplakyDao teplakyDao 
+            = DaoFactory.INSTANCE.getTeplakyDao();
 
+    private TeplakyTableModel teplakyTableModel = new TeplakyTableModel();
+            
     /**
      * Creates new form HlavnyFormular
      */
@@ -26,8 +30,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
     }
 
     private void aktualizujZoznamTeplakov() {
-        List<Teplaky> zoznamTeplakov = teplakyDao.dajVsetky();
-        lstTeplaky.setListData(zoznamTeplakov.toArray());
+        teplakyTableModel.obnov();
     }
 
     /**
@@ -41,30 +44,19 @@ public class HlavnyFormular extends javax.swing.JFrame {
 
         lblHlavicka = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lstTeplaky = new javax.swing.JList();
         lblTagline = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField();
         btnVyhladavat = new javax.swing.JButton();
         btnPridat = new javax.swing.JButton();
         btnUpravit = new javax.swing.JButton();
+        btnOdstranit = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabTeplaky = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblHlavicka.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblHlavicka.setText("Teplákošop");
-
-        lstTeplaky.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        lstTeplaky.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstTeplakyMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(lstTeplaky);
 
         lblTagline.setText("Tepláky pre každý zadok!");
 
@@ -89,6 +81,16 @@ public class HlavnyFormular extends javax.swing.JFrame {
             }
         });
 
+        btnOdstranit.setText("Odstrániť...");
+        btnOdstranit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOdstranitActionPerformed(evt);
+            }
+        });
+
+        tabTeplaky.setModel(teplakyTableModel);
+        jScrollPane1.setViewportView(tabTeplaky);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,7 +98,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblTagline)
@@ -104,13 +106,16 @@ public class HlavnyFormular extends javax.swing.JFrame {
                         .addComponent(lblHlavicka))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addComponent(btnVyhladavat))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnPridat)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpravit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnUpravit)))
+                        .addComponent(btnOdstranit)
+                        .addGap(2, 2, 2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -126,30 +131,22 @@ public class HlavnyFormular extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVyhladavat))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPridat)
-                    .addComponent(btnUpravit))
-                .addGap(9, 9, 9))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpravit)
+                    .addComponent(btnOdstranit)
+                    .addComponent(btnPridat))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lstTeplakyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTeplakyMouseClicked
-        if(evt.getClickCount() == 2) {
-            Teplaky vybrateTeplaky = (Teplaky) lstTeplaky.getSelectedValue();
-        
-            DetailForm detailForm = new DetailForm(vybrateTeplaky, this);
-            detailForm.setVisible(true);
-        }
-    }//GEN-LAST:event_lstTeplakyMouseClicked
-
     private void btnVyhladavatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVyhladavatActionPerformed
         String filter = txtFilter.getText();
-        lstTeplaky.setListData(teplakyDao.hladatPodlaFarby(filter).toArray());
+        // lstTeplaky.setListData(teplakyDao.hladatPodlaFarby(filter).toArray());
     }//GEN-LAST:event_btnVyhladavatActionPerformed
 
     private void btnPridatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPridatActionPerformed
@@ -160,7 +157,9 @@ public class HlavnyFormular extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPridatActionPerformed
 
     private void btnUpravitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpravitActionPerformed
-        Teplaky vybrateTeplaky = (Teplaky) lstTeplaky.getSelectedValue();
+        int vybranyRiadok = tabTeplaky.getSelectedRow();
+        Teplaky vybrateTeplaky
+                = teplakyTableModel.dajPodlaCislaRiadku(vybranyRiadok);
         
         UpravitTeplakyForm upravitTeplakyForm 
                 = new UpravitTeplakyForm(vybrateTeplaky, this);
@@ -168,6 +167,26 @@ public class HlavnyFormular extends javax.swing.JFrame {
         
         aktualizujZoznamTeplakov();
     }//GEN-LAST:event_btnUpravitActionPerformed
+
+    private void btnOdstranitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOdstranitActionPerformed
+        int vybranyRiadok = tabTeplaky.getSelectedRow();
+        Teplaky vybrateTeplaky
+                = teplakyTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+
+        if(vybrateTeplaky == null) {
+            return;
+        }
+        
+        int tlacidlo = JOptionPane.showConfirmDialog(this, 
+                "Naozaj odstrániť?",
+                "Odstrániť tepláky",
+                JOptionPane.YES_NO_OPTION
+        );
+        if(tlacidlo == JOptionPane.YES_OPTION) {
+            teplakyDao.odstran(vybrateTeplaky);    
+            aktualizujZoznamTeplakov();            
+        }
+    }//GEN-LAST:event_btnOdstranitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +224,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOdstranit;
     private javax.swing.JButton btnPridat;
     private javax.swing.JButton btnUpravit;
     private javax.swing.JButton btnVyhladavat;
@@ -212,7 +232,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblHlavicka;
     private javax.swing.JLabel lblTagline;
-    private javax.swing.JList lstTeplaky;
+    private javax.swing.JTable tabTeplaky;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 }

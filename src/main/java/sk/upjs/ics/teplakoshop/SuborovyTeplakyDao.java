@@ -123,4 +123,11 @@ public class SuborovyTeplakyDao implements TeplakyDao {
             }
         }
     }
+
+    @Override
+    public void odstran(Teplaky teplaky) {
+        // nie je podporovane
+    }
+    
+    
 }

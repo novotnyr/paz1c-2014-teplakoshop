@@ -7,6 +7,9 @@
 22;modra;M;25
 20;cervena;XXXL;12
 23;modrobiela;XXXL;12
+<<<<<<< HEAD
+24;khaki;XS;1
+=======
 24;;;0
 25;kdfk;knkvcjxn;1
 26;j;jjj;10
@@ -21,3 +24,4 @@
 23;modrobiela;XXXL;12
 24;khaki;XS;1
 >>>>>>> THEIRS
+>>>>>>> master
