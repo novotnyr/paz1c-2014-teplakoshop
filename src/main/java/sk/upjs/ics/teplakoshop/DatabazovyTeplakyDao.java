@@ -1,6 +1,6 @@
 package sk.upjs.ics.teplakoshop;
 
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.util.List;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,10 +9,10 @@ public class DatabazovyTeplakyDao implements TeplakyDao{
     private JdbcTemplate jdbcTemplate;
     
     public DatabazovyTeplakyDao() {
-        SQLServerDataSource dataSource = new SQLServerDataSource();
-        dataSource.setURL("jdbc:sqlserver://localhost:1433;databaseName=teplaky");
-        dataSource.setUser("paz1c");
-        dataSource.setPassword("paz1c");
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setURL("jdbc:mysql://localhost:3306/teplaky");
+        dataSource.setUser("root");
+        dataSource.setPassword("");
 
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }

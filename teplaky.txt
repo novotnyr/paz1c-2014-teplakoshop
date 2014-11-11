@@ -6,3 +6,4 @@
 22;modra;M;25
 20;cervena;XXXL;12
 23;modrobiela;XXXL;12
+24;;;0
