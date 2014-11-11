@@ -4,6 +4,7 @@ package sk.upjs.ics.teplakoshop;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,11 +21,18 @@ public class HlavnyFormular extends javax.swing.JFrame {
 
     private TeplakyTableModel teplakyTableModel = new TeplakyTableModel();
             
+    private TableRowSorter teplakyRowSorter = new TableRowSorter(teplakyTableModel);
+    
+    private TeplakyPodlaFarbyRowFilter teplakyPodlaFarbyRowFilter 
+            = new TeplakyPodlaFarbyRowFilter();
     /**
      * Creates new form HlavnyFormular
      */
     public HlavnyFormular() {
         initComponents();
+        
+        //teplakyRowSorter.setComparator(1, comparator);
+        teplakyRowSorter.setRowFilter(teplakyPodlaFarbyRowFilter);
         
         aktualizujZoznamTeplakov();        
     }
@@ -89,6 +97,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
         });
 
         tabTeplaky.setModel(teplakyTableModel);
+        tabTeplaky.setRowSorter(teplakyRowSorter);
         jScrollPane1.setViewportView(tabTeplaky);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -98,16 +107,12 @@ public class HlavnyFormular extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblTagline)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblHlavicka))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                        .addComponent(btnVyhladavat))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnPridat)
@@ -115,7 +120,11 @@ public class HlavnyFormular extends javax.swing.JFrame {
                         .addComponent(btnUpravit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnOdstranit)
-                        .addGap(2, 2, 2)))
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtFilter)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVyhladavat)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -146,7 +155,9 @@ public class HlavnyFormular extends javax.swing.JFrame {
 
     private void btnVyhladavatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVyhladavatActionPerformed
         String filter = txtFilter.getText();
-        // lstTeplaky.setListData(teplakyDao.hladatPodlaFarby(filter).toArray());
+        teplakyPodlaFarbyRowFilter.setFarba(filter);
+        
+        aktualizujZoznamTeplakov();
     }//GEN-LAST:event_btnVyhladavatActionPerformed
 
     private void btnPridatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPridatActionPerformed
@@ -158,8 +169,10 @@ public class HlavnyFormular extends javax.swing.JFrame {
 
     private void btnUpravitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpravitActionPerformed
         int vybranyRiadok = tabTeplaky.getSelectedRow();
+        int vybratyIndexVModeli = tabTeplaky.convertRowIndexToModel(vybranyRiadok);
+        
         Teplaky vybrateTeplaky
-                = teplakyTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+                = teplakyTableModel.dajPodlaCislaRiadku(vybratyIndexVModeli);
         
         UpravitTeplakyForm upravitTeplakyForm 
                 = new UpravitTeplakyForm(vybrateTeplaky, this);
@@ -170,8 +183,10 @@ public class HlavnyFormular extends javax.swing.JFrame {
 
     private void btnOdstranitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOdstranitActionPerformed
         int vybranyRiadok = tabTeplaky.getSelectedRow();
+        int vybratyIndexVModeli = tabTeplaky.convertRowIndexToModel(vybranyRiadok);
+        
         Teplaky vybrateTeplaky
-                = teplakyTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+                = teplakyTableModel.dajPodlaCislaRiadku(vybratyIndexVModeli);
 
         if(vybrateTeplaky == null) {
             return;
