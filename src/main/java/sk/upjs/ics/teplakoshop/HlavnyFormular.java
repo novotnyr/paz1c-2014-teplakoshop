@@ -1,9 +1,12 @@
 package sk.upjs.ics.teplakoshop;
 
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 
 /*
@@ -34,7 +37,26 @@ public class HlavnyFormular extends javax.swing.JFrame {
         //teplakyRowSorter.setComparator(1, comparator);
         teplakyRowSorter.setRowFilter(teplakyPodlaFarbyRowFilter);
         
+        tabTeplaky.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                tabTeplakySelectionValueChanged(e);
+            }
+        });
+        
         aktualizujZoznamTeplakov();        
+    }
+
+    private void tabTeplakySelectionValueChanged(ListSelectionEvent e) {
+        if(!e.getValueIsAdjusting()) {
+            if(!tabTeplaky.getSelectionModel().isSelectionEmpty()) {
+                btnUpravit.setEnabled(true);
+                btnOdstranit.setEnabled(true);
+            } else {
+                btnUpravit.setEnabled(false);
+                btnOdstranit.setEnabled(false);
+            }
+        }
     }
 
     private void aktualizujZoznamTeplakov() {
@@ -83,6 +105,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
         });
 
         btnUpravit.setText("Upraviť...");
+        btnUpravit.setEnabled(false);
         btnUpravit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpravitActionPerformed(evt);
@@ -90,6 +113,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
         });
 
         btnOdstranit.setText("Odstrániť...");
+        btnOdstranit.setEnabled(false);
         btnOdstranit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOdstranitActionPerformed(evt);
@@ -98,6 +122,12 @@ public class HlavnyFormular extends javax.swing.JFrame {
 
         tabTeplaky.setModel(teplakyTableModel);
         tabTeplaky.setRowSorter(teplakyRowSorter);
+        tabTeplaky.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tabTeplaky.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabTeplakyMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabTeplaky);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -202,6 +232,12 @@ public class HlavnyFormular extends javax.swing.JFrame {
             aktualizujZoznamTeplakov();            
         }
     }//GEN-LAST:event_btnOdstranitActionPerformed
+
+    private void tabTeplakyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabTeplakyMouseClicked
+        if(evt.getClickCount() == 2) {
+            btnUpravit.doClick();
+        }
+    }//GEN-LAST:event_tabTeplakyMouseClicked
 
     /**
      * @param args the command line arguments
