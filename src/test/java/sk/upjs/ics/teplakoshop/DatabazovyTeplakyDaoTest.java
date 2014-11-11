@@ -1,6 +1,6 @@
 package sk.upjs.ics.teplakoshop;
 
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -9,10 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class DatabazovyTeplakyDaoTest {
     @Test
     public void test() {
-        SQLServerDataSource dataSource = new SQLServerDataSource();
-        dataSource.setURL("jdbc:sqlserver://localhost:1433;databaseName=teplaky");
-        dataSource.setUser("paz1c");
-        dataSource.setPassword("paz1c");
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setURL("jdbc:mysql://localhost:3066/teplaky");
+        dataSource.setUser("root");
+        dataSource.setPassword("");
         
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         int pocetRiadkov = jdbcTemplate.queryForInt("SELECT COUNT(*) FROM teplaky");
