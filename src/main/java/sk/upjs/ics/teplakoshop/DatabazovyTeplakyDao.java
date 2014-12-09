@@ -14,14 +14,11 @@ public class DatabazovyTeplakyDao implements TeplakyDao{
     private BeanPropertyRowMapper<Teplaky> mapovac =
                 new BeanPropertyRowMapper<>(Teplaky.class);
 
-    public DatabazovyTeplakyDao() {
-        SQLServerDataSource dataSource = new SQLServerDataSource();
-        dataSource.setURL("jdbc:sqlserver://localhost:1433;databaseName=teplaky");
-        dataSource.setUser("paz1c");
-        dataSource.setPassword("paz1c");
-
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public DatabazovyTeplakyDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
+
+    
     
     @Override
     public List<Teplaky> dajVsetky() {

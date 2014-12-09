@@ -34,6 +34,8 @@ public class HlavnyFormular extends javax.swing.JFrame {
     public HlavnyFormular() {
         initComponents();
         
+        panHlavicka.add(new HlavickaPanel());
+        
         //teplakyRowSorter.setComparator(1, comparator);
         teplakyRowSorter.setRowFilter(teplakyPodlaFarbyRowFilter);
         
@@ -72,9 +74,6 @@ public class HlavnyFormular extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblHlavicka = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        lblTagline = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField();
         btnVyhladavat = new javax.swing.JButton();
         btnPridat = new javax.swing.JButton();
@@ -82,13 +81,9 @@ public class HlavnyFormular extends javax.swing.JFrame {
         btnOdstranit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabTeplaky = new javax.swing.JTable();
+        panHlavicka = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lblHlavicka.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblHlavicka.setText("Teplákošop");
-
-        lblTagline.setText("Tepláky pre každý zadok!");
 
         btnVyhladavat.setText("Hľadať");
         btnVyhladavat.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +125,9 @@ public class HlavnyFormular extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabTeplaky);
 
+        panHlavicka.setBackground(new java.awt.Color(204, 0, 204));
+        panHlavicka.setLayout(new java.awt.BorderLayout());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,12 +135,12 @@ public class HlavnyFormular extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panHlavicka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblTagline)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblHlavicka))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtFilter)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVyhladavat))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnPridat)
@@ -150,34 +148,26 @@ public class HlavnyFormular extends javax.swing.JFrame {
                         .addComponent(btnUpravit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnOdstranit)
-                        .addGap(2, 2, 2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtFilter)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVyhladavat)))
+                        .addGap(2, 2, 2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHlavicka)
-                    .addComponent(lblTagline))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panHlavicka, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVyhladavat))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpravit)
                     .addComponent(btnOdstranit)
                     .addComponent(btnPridat))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -280,9 +270,7 @@ public class HlavnyFormular extends javax.swing.JFrame {
     private javax.swing.JButton btnUpravit;
     private javax.swing.JButton btnVyhladavat;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblHlavicka;
-    private javax.swing.JLabel lblTagline;
+    private javax.swing.JPanel panHlavicka;
     private javax.swing.JTable tabTeplaky;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables

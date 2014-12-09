@@ -26,6 +26,8 @@ public class UpravitTeplakyForm extends javax.swing.JDialog {
     public UpravitTeplakyForm(Teplaky teplaky, Frame parent) {
         this(parent, true);
         
+        panHlavicka.add(new HlavickaPanel());
+        
         this.teplaky = teplaky;
         txtFarba.setText(teplaky.getFarba());
         if(teplaky.getCena() == null) {
@@ -33,7 +35,7 @@ public class UpravitTeplakyForm extends javax.swing.JDialog {
         } else {
             txtCena.setText(teplaky.getCena().toString());
         }
-        txtVelkost.setText(teplaky.getVelkost());
+        cmbVelkost.setSelectedItem(teplaky.getVelkost());
     }
     
     /**
@@ -53,27 +55,25 @@ public class UpravitTeplakyForm extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new javax.swing.JToolBar();
         txtFarba = new javax.swing.JTextField();
         lblFarba = new javax.swing.JLabel();
         lblVelkost = new javax.swing.JLabel();
-        txtVelkost = new javax.swing.JTextField();
         lblCena = new javax.swing.JLabel();
         txtCena = new javax.swing.JTextField();
         lblEura = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
         btnStorno = new javax.swing.JButton();
+        panHlavicka = new javax.swing.JPanel();
+        cmbVelkost = new javax.swing.JComboBox();
+
+        jToolBar1.setRollover(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblFarba.setText("Farba:");
 
         lblVelkost.setText("Veľkosť:");
-
-        txtVelkost.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtVelkostActionPerformed(evt);
-            }
-        });
 
         lblCena.setText("Cena:");
 
@@ -93,6 +93,11 @@ public class UpravitTeplakyForm extends javax.swing.JDialog {
             }
         });
 
+        panHlavicka.setBackground(new java.awt.Color(255, 0, 102));
+        panHlavicka.setLayout(new java.awt.BorderLayout());
+
+        cmbVelkost.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "XS", "S", "M", "L", "XL", "XXL", "XXXL" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,34 +105,39 @@ public class UpravitTeplakyForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblVelkost)
-                    .addComponent(lblCena)
-                    .addComponent(lblFarba))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFarba)
+                    .addComponent(panHlavicka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCena, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblVelkost)
+                            .addComponent(lblCena)
+                            .addComponent(lblFarba))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblEura)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnStorno))
-                    .addComponent(txtVelkost))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFarba)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtCena, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblEura)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                                .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnStorno))
+                            .addComponent(cmbVelkost, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(panHlavicka, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFarba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFarba))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblVelkost)
-                    .addComponent(txtVelkost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbVelkost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCena)
@@ -136,15 +146,11 @@ public class UpravitTeplakyForm extends javax.swing.JDialog {
                         .addComponent(lblEura)
                         .addComponent(btnOK)
                         .addComponent(btnStorno)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtVelkostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVelkostActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtVelkostActionPerformed
 
     private void btnStornoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStornoActionPerformed
         dispose();
@@ -153,7 +159,7 @@ public class UpravitTeplakyForm extends javax.swing.JDialog {
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
 //        Teplaky teplaky = new Teplaky();
         teplaky.setFarba(txtFarba.getText());
-        teplaky.setVelkost(txtVelkost.getText());
+        teplaky.setVelkost(cmbVelkost.getSelectedItem().toString());
         teplaky.setCena(new BigDecimal(txtCena.getText()));
         
         teplakyDao.save(teplaky);
@@ -206,12 +212,14 @@ public class UpravitTeplakyForm extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnStorno;
+    private javax.swing.JComboBox cmbVelkost;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblCena;
     private javax.swing.JLabel lblEura;
     private javax.swing.JLabel lblFarba;
     private javax.swing.JLabel lblVelkost;
+    private javax.swing.JPanel panHlavicka;
     private javax.swing.JTextField txtCena;
     private javax.swing.JTextField txtFarba;
-    private javax.swing.JTextField txtVelkost;
     // End of variables declaration//GEN-END:variables
 }
